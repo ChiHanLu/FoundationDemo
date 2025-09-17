@@ -928,7 +928,8 @@ const allEvents = [
   }
 ];
 
-export default function EventDetailPage({ params }: { params: { id: string } }) {
+export default function EventDetailPage(props: unknown) {
+  const { params } = props as { params: { id: string } };
   const eventId = parseInt(params.id);
   const event = allEvents.find(e => e.id === eventId);
 

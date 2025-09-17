@@ -14,7 +14,7 @@ export default function VideoCarousel({
   className = ""
 }: VideoCarouselProps) {
   const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
-  const [isTransitioning, setIsTransitioning] = useState(false);
+  // removed isTransitioning state (unused)
   const [isInitialized, setIsInitialized] = useState(false);
   const [videosLoaded, setVideosLoaded] = useState<boolean[]>(new Array(videos.length).fill(false));
   const [videoErrors, setVideoErrors] = useState<boolean[]>(new Array(videos.length).fill(false));
@@ -28,13 +28,10 @@ export default function VideoCarousel({
     if (videos.length <= 1) return;
 
     const interval = setInterval(() => {
-      setIsTransitioning(true);
-      
       setTimeout(() => {
         setCurrentVideoIndex((prevIndex) => 
           (prevIndex + 1) % videos.length
         );
-        setIsTransitioning(false);
       }, 500);
     }, autoPlayInterval);
 
@@ -132,13 +129,9 @@ export default function VideoCarousel({
           {videos.map((_, index) => (
             <button
               key={index}
-              onClick={() => {
-                setIsTransitioning(true);
-                setTimeout(() => {
-                  setCurrentVideoIndex(index);
-                  setIsTransitioning(false);
-                }, 500);
-              }}
+                onClick={() => {
+                  setTimeout(() => setCurrentVideoIndex(index), 500);
+                }}
               className={`w-3 h-3 rounded-full transition-all duration-300 ${
                 index === currentVideoIndex
                   ? 'bg-white'

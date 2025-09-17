@@ -616,7 +616,8 @@ const allNews = [
   }
 ];
 
-export default function NewsDetailPage({ params }: { params: { id: string } }) {
+export default function NewsDetailPage(props: unknown) {
+  const { params } = props as { params: { id: string } };
   const newsId = parseInt(params.id);
   const newsItem = allNews.find(news => news.id === newsId);
 
